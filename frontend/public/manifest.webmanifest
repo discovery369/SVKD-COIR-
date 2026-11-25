@@ -1,0 +1,19 @@
+{
+  "name": "SVKD COIR",
+  "short_name": "SVKD COIR",
+  "description": "SVKD COIR business income and expense ledger",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#F5F0E7",
+  "theme_color": "#173C2C",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "./icons/app-icon.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

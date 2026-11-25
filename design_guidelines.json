@@ -1,0 +1,89 @@
+{
+  "project": {
+    "name": "Coir Ledger",
+    "context": "mobile_web_app / Expo mobile app",
+    "audience": "Small coir business owners and operators recording daily cash movement on a phone",
+    "success_actions": ["See net balance at a glance", "Add a record in under 20 seconds", "Correct or delete an entry safely", "Review income and expenses together"],
+    "storage": "Local device persistence only; no external services or sync required",
+    "theme": "Warm light theme with a dark utility bottom navigation",
+    "emotional_tone": "Grounded, trustworthy, calm, practical, and quietly crafted"
+  },
+  "design_concepts": [
+    {"name":"Palm Ledger", "probability":0.34, "description":"Warm sand surfaces, deep forest ink, terracotta income accent, and a tactile ledger rhythm. Mixes Indian account-book practicality, botanical material warmth, and modern mobile finance clarity."},
+    {"name":"Kiln & Copper", "probability":0.22, "description":"Bone background, charcoal rules, copper-orange action color, and compact industrial labels. Feels like a workshop register without looking rustic or nostalgic."},
+    {"name":"Monsoon Balance", "probability":0.18, "description":"Cloudy blue-grey base, leaf green positive states, muted saffron controls, and generous rain-like spacing. Calmer for long review sessions."},
+    {"name":"Red Earth Audit", "probability":0.15, "description":"Pale clay surfaces with dark wine ink and restrained signal red for expenses. Stronger contrast for operators who need quick scanning."},
+    {"name":"Paper + Signal", "probability":0.11, "description":"Swiss grid discipline over warm paper, with one functional orange signal color. Most efficient option for dense table review."}
+  ],
+  "chosen_direction": {
+    "name": "Palm Ledger",
+    "rationale": "The app records physical coir production and cash activity, so the interface should feel like a dependable material ledger rather than a generic fintech dashboard. It uses three fused references: Indian paper account books, botanical/coir fiber texture, and high-clarity mobile data UI.",
+    "rule_breaks": ["Use asymmetrical summary composition rather than three identical cards", "Use thin ledger rules and small overlines as visual structure instead of card shadows", "Let the dark bottom navigation become an anchor while the content remains warm and light"]
+  },
+  "typography": {
+    "heading_font": "DM Serif Display",
+    "body_font": "IBM Plex Sans",
+    "numeric_font": "IBM Plex Mono",
+    "reason": "A human editorial serif gives the balance a crafted, trustworthy voice; Plex Sans stays readable in dense rows; Plex Mono makes rupee totals and amounts align reliably.",
+    "scale": {"screen_title":"28px / 32px", "section_heading":"20px / 24px", "card_heading":"16px / 20px", "body":"15px / 22px", "label":"11px / 14px", "amount":"26px / 30px"},
+    "rules": ["Headings use tight tracking and never use Inter, Roboto, or Open Sans", "Labels are uppercase with letter spacing 0.16em", "Body copy remains left aligned and uses relaxed line height", "Use tabular numerals for all rupee values"]
+  },
+  "colors": {
+    "archetype":"Organic & Earthy",
+    "palette": {"canvas":"#F5F0E7", "surface":"#FFFDF8", "ink":"#1F2924", "muted_ink":"#59635C", "line":"#D8D1C4", "forest":"#173C2C", "income":"#2F7D57", "expense":"#B65A43", "action":"#C76B35", "highlight":"#E8D5A7", "nav":"#203029", "on_dark":"#FFFDF8"},
+    "usage": ["Use forest only for primary CTA, selected tab, and net-positive emphasis", "Use green for income values and terracotta for expenses; pair with text labels, never color alone", "Use warm canvas for the page and solid surface for forms and table regions", "Do not use pure black, pure grey, teal, or full-screen gradients"],
+    "contrast": "All normal text should target at least 4.5:1; large text and controls at least 3:1. Verify final combinations with APCA/WCAG tooling."
+  },
+  "screen_structure": {
+    "dashboard": ["Solid top app bar with brand name Coir Ledger, local-only status, and overflow actions", "Greeting/date context aligned left", "Asymmetric balance block: large Net balance on left; compact Income and Expenses figures stacked on right", "Income / Expenses segmented tabs", "Single scrollable content area with both sections visible in Combined mode", "Income and Expense table sections with column headers and row actions", "Fixed dark bottom navigation: Overview, Income, Expenses, Settings", "Floating Add record button above bottom navigation"],
+    "record_form": ["Modal or pushed screen with explicit Add income / Add expense title", "Date picker row, today preselected", "Product or category selection using a Shadcn/Radix-style accessible popover or radio list, not native select", "Decimal amount input with numeric keyboard and ₹ prefix", "Primary Save button and secondary Cancel", "Edit mode reuses form with Delete action separated and visually dangerous"],
+    "record_detail": ["Large amount and type label", "Date and product/category metadata", "Edit and Delete actions", "Delete confirmation dialog explaining the record will be removed from this device only"],
+    "settings": ["Storage note: Stored on this device", "Currency fixed to ₹ INR", "Optional clear-all data action behind confirmation", "About and accessibility controls"]
+  },
+  "components": [
+    {"name":"AppHeader", "component_path":"/app/frontend/src/components/AppHeader.js", "instructions":"Solid #FFFDF8 surface, bottom border, no transparent background. Include data-testid=app-header and data-testid=app-brand-link."},
+    {"name":"BalanceSummary", "component_path":"/app/frontend/src/components/BalanceSummary.js", "instructions":"Use a flat surface with generous p-6, one dark forest net balance panel and two unboxed supporting totals. Add data-testid to each total."},
+    {"name":"LedgerTabs", "component_path":"/app/frontend/src/components/LedgerTabs.js", "instructions":"Accessible tabs for Combined, Income, Expenses. Selected state has forest fill and on-dark text; hover explicitly sets text color."},
+    {"name":"LedgerTable", "component_path":"/app/frontend/src/components/LedgerTable.js", "instructions":"Mobile-first horizontally scrollable table with sticky first column only if needed. Columns Date, Product/Category, Amount. Each row includes edit and delete icon buttons with accessible labels and data-testid."},
+    {"name":"RecordForm", "component_path":"/app/frontend/src/components/RecordForm.js", "instructions":"Use Shadcn Input, Form, Dialog/Sheet, Popover and command/radio primitives. Do not use native select or date input. Amount accepts decimal strings and validates positive values."},
+    {"name":"BottomNav", "component_path":"/app/frontend/src/components/BottomNav.js", "instructions":"Dark solid nav, fixed z-50 with safe-area padding. Four reachable destinations, visible labels, icons from lucide-react. Add data-testid to every link."},
+    {"name":"ConfirmDeleteDialog", "component_path":"/app/frontend/src/components/ConfirmDeleteDialog.js", "instructions":"Use Dialog primitive, solid surface, clear destructive button, explicit focus ring and Sonner success toast after deletion."}
+  ],
+  "grids": {
+    "dashboard":"Mobile one-column flow; desktop/web enhancement uses 12-column grid with balance spanning 8 columns and quick totals spanning 4. Table sections remain full width.",
+    "summary":"Use grid-cols-1 sm:grid-cols-[1.4fr_0.6fr] gap-6; align-items-start. Never force equal-height cards.",
+    "table":"Use CSS grid or semantic table with min-width: 520px inside overflow-x-auto. Row height 64px minimum; 16px horizontal padding.",
+    "spacing":"Use 8px base rhythm, with p-6/p-8 surfaces, gap-6 between major sections, and py-10 or more between page chapters. Avoid cramped p-3 containers.",
+    "radius":"Use 8px maximum for data surfaces; pill shape reserved for tabs, status chips, and primary CTA. No excessive rounded cards."
+  },
+  "layouts": {
+    "mobile":"Safe-area-aware 16px page gutter, top bar 64px, bottom nav 76px, content bottom padding 120px so the FAB/nav never covers rows. Tables scroll horizontally rather than collapsing data into ambiguous columns.",
+    "desktop":"Max-width 1180px with left-aligned content, 32px gutters, asymmetrical summary grid, dense but breathable table rows.",
+    "scroll":"One page scroll for Combined dashboard. Tab changes filter visible ledger sections without resetting scroll unexpectedly. Preserve draft and scroll position after modal close."
+  },
+  "interaction_states": {
+    "buttons":"Hover changes background and text explicitly; active presses scale to 0.98; focus uses 2px forest ring with 3px offset; transitions target background-color, color, border-color, opacity, and transform separately.",
+    "rows":"Hover uses #F0E9DC background and darker ink; selected/editing row has left 3px forest rule. Do not rely on color alone.",
+    "loading":"Show skeleton rows and a stable summary silhouette; never shift the table layout.",
+    "validation":"Inline error below field, clear wording such as Amount must be greater than ₹0; preserve entered values.",
+    "toast":"Use Sonner for saved, updated, and deleted confirmation. Toasts state the record type and amount, e.g. Income of ₹2,500 saved.",
+    "delete":"Destructive action requires confirmation; delete button is terracotta/red with explicit white text.",
+    "reduced_motion":"Respect prefers-reduced-motion; remove entrance movement and press transforms while preserving state changes."
+  },
+  "empty_states": {
+    "income":"No income recorded yet. Add your first Coir Pith or Coir Bale sale to start the ledger.",
+    "expenses":"No expenses recorded yet. Add salaries, current bill, or maintenance when ready.",
+    "combined":"Your ledger is ready. Add an income or expense to see the net balance change.",
+    "visual":"Use a simple line illustration of a woven fiber bundle in forest/terracotta, preferably inline SVG generated locally; no external image URL or base64 asset is needed.",
+    "cta":"Add income / Add expense buttons remain visible and keyboard accessible."
+  },
+  "icons": {"library":"lucide-react", "guidance":"Use WalletCards for balance, ArrowDownLeft for income, ArrowUpRight for expenses, CalendarDays for date, Pencil for edit, Trash2 for delete, Plus for add, Settings2 for settings. Use 20-22px icons with text labels; never use emoji icons.", "accessibility":"Decorative icons aria-hidden=true; action icons have aria-label and data-testid."},
+  "motion": {"principles":"Quiet, tactile feedback only; finance data should feel stable, not gamified.", "entrance":"Stagger summary and table sections by 40ms with opacity and translateY(6px), disabled for reduced motion.", "micro":"FAB rotates Plus 45deg only when form is open; rows fade in after save; tab indicator moves with 180ms transform.", "avoid":"No parallax, no decorative gradients, no bouncing money animations, no transition: all."},
+  "accessibility": {"requirements":["Every interactive and key informational element has a kebab-case data-testid", "Minimum 44x44px touch targets", "Use semantic headings, table headers, labels, and form descriptions", "Keyboard focus visible with high contrast", "Screen-reader announce toast outcomes and validation errors", "Do not communicate income/expense by color only; include labels, arrows, and signs", "Support dynamic text size without clipping or horizontal page overflow", "Use Indian rupee formatting with locale-aware grouping, e.g. ₹1,25,000.50"], "testids":["app-header","dashboard-net-balance","dashboard-total-income","dashboard-total-expenses","ledger-tabs","income-table","expense-table","add-income-button","add-expense-button","record-date-input","record-type-input","record-amount-input","record-save-button","record-cancel-button","record-edit-button","record-delete-button","delete-confirm-button","bottom-nav-overview","bottom-nav-income","bottom-nav-expenses","bottom-nav-settings"]},
+  "media": {"need_images":false, "guidance":"This is a local finance ledger and imagery would distract from trust and data clarity. Do not use remote stock images, placeholder URLs, or base64 backgrounds. If an illustration is desired, use a small local inline SVG of coir fibers with solid fills and aria-hidden=true.", "texture":"Optional subtle CSS grain using a local low-opacity noise pattern only if performance permits; never lower text contrast."},
+  "data_and_functionality": {"persistence":"Use device-local storage only, such as AsyncStorage in Expo or localStorage for web fallback. No authentication, API, analytics, or sync.", "records":"Income: id, date ISO string, product enum coir_pith|coir_bale, amount decimal. Expense: id, date ISO string, category enum salaries|current_bill|maintenance, amount decimal.", "calculations":"totalIncome=sum income amounts; totalExpenses=sum expense amounts; netBalance=totalIncome-totalExpenses. Recalculate after add/edit/delete and on hydration.", "dates":"Date picker opens with today preselected; display DD MMM YYYY in rows and locale-safe ISO values internally.", "currency":"Use decimal numeric parsing, reject negative/empty/NaN values, format display with Intl.NumberFormat('en-IN',{style:'currency',currency:'INR'})."},
+  "3d_libraries": {"use":false, "reason":"A finance ledger benefits from clarity and offline reliability; 3D would add weight without helping a key task."},
+  "visual_enhancers": ["Subtle paper-like canvas tint", "1px ledger rules", "Small uppercase section overlines", "Asymmetric summary hierarchy", "Dark solid bottom navigation", "Short Sonner confirmations", "Focus rings and selection rules"],
+  "implementation_notes_for_js": {"file_type":"Use .js and .jsx files, not .tsx", "styling":"Use Tailwind classes where available; keep page structure as semantic HTML and use Shadcn primitives for dialogs, popovers, inputs, tabs, and toast interactions.", "missing_template_files":"The expected frontend Tailwind and CSS paths were not present during discovery, so implementation should first inspect the actual project tree and existing JS conventions before adding files."},
+  "GENERAL_UI_UX_DESIGN_GUIDELINES": ["Never use a fully transparent header, dropdown, modal, or overlay over content; use solid or opaque glass surfaces with blur and a border.", "Do not center-align the entire app container; align content to a readable left edge.", "Use 2-3x generous spacing and preserve breathing room around bordered content.", "Use explicit hover, active, focus, disabled, loading, empty, error, and success states.", "Use only the primary forest color for primary CTAs and selected navigation; keep accents functional.", "Avoid gradients, generic SaaS blue, excessive shadows, and equal-card dashboard layouts.", "All key actions and informational totals require data-testid attributes using kebab-case.", "Use Sonner for toasts and accessible Shadcn primitives for advanced interactions.", "Keep all flows usable offline and do not require external services.", "Customize scrollbars subtly without adding a scrollbar gutter or reducing content width."]
+}
