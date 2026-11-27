@@ -246,15 +246,27 @@ export default function Index() {
     <SafeAreaView style={s.safe}>
       <View style={s.header}>
         <Pressable testID="open-profile-button" style={{ flex: 1, marginRight: 12 }} onPress={() => setShowProfile(true)}>
-          <Text style={s.brand} numberOfLines={1}>{profile.company}</Text>
-          <View style={s.localRow}><View style={s.dot} /><Text style={s.local}>Stored on this device</Text></View>
+        <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
+            <Image
+                source={require("../assets/images/svkd-coir-logo.png")}
+                    style={{ width: 52, height: 52 }}
+                        resizeMode="contain"
+                          />
+                            <View style={{ flex: 1 }}>
+                                <Text style={s.brand} numberOfLines={1}>{profile.company}</Text>
+                                    <View style={s.localRow}>
+                                          <View style={s.dot} />
+                                                <Text style={s.local}>Stored on this device</Text>
+                                                    </View>
+                                                      </View>
+                                                      </View>
         </Pressable>
         <Pressable testID="header-profile-icon" hitSlop={8} onPress={() => setShowProfile(true)}>
           <MaterialCommunityIcons name="account-circle-outline" size={26} color={C.muted} />
         </Pressable>
       </View>
 
-      <ScrollView contentContainerStyle={s.content} showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
+      <ScrollView style={{ flex: 1 }} contentContainerStyle={s.content} showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
         <Text style={s.overline}>{title.toUpperCase()}</Text>
         {tab === "settings" ? (
           <Settings
@@ -561,7 +573,7 @@ function PhotoViewerModal({ list, index, onClose }: { list: string[]; index: num
     <Modal animationType="fade" transparent visible onRequestClose={onClose}>
       <View testID="photo-viewer" style={s.photoViewerWrap}>
         <Pressable style={s.photoViewerBackdrop} onPress={onClose} />
-        <Image source={{ uri }} style={[s.photoViewerImage, { pointerEvents: "none" }]} resizeMode="contain" />
+        <Image source={{ uri }} style={s.photoViewerImage} resizeMode="contain" />
         {total > 1 && (
           <>
             <Pressable testID="photo-viewer-prev" onPress={() => setI((v) => (v - 1 + total) % total)} style={[s.photoNav, { left: 12 }]}>
@@ -2149,6 +2161,9 @@ const s = StyleSheet.create({
   calendarHead: { backgroundColor: C.surface, borderWidth: 1, borderColor: C.line, padding: 14, flexDirection: "row", alignItems: "center", justifyContent: "space-between" },
   calendarTitle: { color: C.ink, fontFamily: Platform.select({ ios: "Georgia", default: "serif" }), fontSize: 20, fontWeight: "700" },
   calendarSummary: { backgroundColor: C.surface, borderWidth: 1, borderColor: C.line, borderTopWidth: 0, padding: 14, flexDirection: "row", justifyContent: "space-between" },
+  calendarIncome: { color: C.income, fontSize: 14, fontWeight: "700" },
+  calendarExpense: { color: C.expense, fontSize: 14, fontWeight: "700" },
+  calendarNet: { color: C.ink, fontSize: 14, fontWeight: "700" },
   exportButton: { marginTop: 14, minHeight: 50, borderRadius: 10, backgroundColor: C.forest, flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 8 },
   exportDisabled: { opacity: 0.5 },
   exportText: { color: "#fff", fontSize: 14, fontWeight: "800" },
